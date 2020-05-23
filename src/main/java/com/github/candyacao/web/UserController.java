@@ -1,10 +1,11 @@
-package com.neo.web;
+package com.github.candyacao.web;
 
-import com.neo.enums.UserSexEnum;
-import com.neo.model.ResponseNormal;
-import com.neo.model.User;
-import com.neo.service.UserService;
-import com.neo.utils.MD5Util;
+import com.github.candyacao.enums.UserSexEnum;
+import com.github.candyacao.model.ResponseNormal;
+import com.github.candyacao.model.User;
+import com.github.candyacao.service.UserService;
+import com.github.candyacao.utils.MD5Util;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
+@Slf4j
 public class UserController {
 
     private static final String SESSION_KEY = "SESSION_KEY";
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/getUser")
+    @RequestMapping("/get_user")
     public User getUser(Long id) {
         User user = userService.getOne(id);
         return user;
@@ -38,6 +40,7 @@ public class UserController {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        log.trace("attempt to login, username: {}, password: {}", username, password);
         if (null == username || null == password) {
             response.setMsg("username or password is null");
             return response;
@@ -46,13 +49,16 @@ public class UserController {
         // 相同，则通过验证
         User user = userService.getOne(username);
         if (user == null) {
-            response.setMsg("user not exists");
+            String msg = "user not exists";
+            log.error("user not exists: {}", username);
+            response.setMsg(msg);
             return response;
         }
         String salt = user.getSalt();
         String md5info = user.getHashPassword();
         String realPassword = MD5Util.md5(password + salt);
         if (!md5info.equals(realPassword)) {
+            log.error("passwd unvalied, username: {}", username);
             response.setMsg("passwd unvalied");
             return response;
         }
@@ -61,6 +67,7 @@ public class UserController {
         request.getSession().setAttribute(SESSION_KEY, user);
         response.setSuccess(true);
         response.setMsg("logined");
+        log.trace("login success, userId: {}", user.getId());
         return response;
     }
 
@@ -106,6 +113,7 @@ public class UserController {
         userService.signUp(username, passWd, UserSexEnum.getSexEnum(Integer.parseInt(userSex)), nickName);
         response.setSuccess(true);
         response.setMsg("singnup success");
+        log.trace("register: user: {}", username);
         return response;
     }
 

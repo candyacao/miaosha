@@ -1,7 +1,7 @@
-package com.neo.mapper;
+package com.github.candyacao.mapper;
 
-import com.neo.enums.UserSexEnum;
-import com.neo.model.User;
+import com.github.candyacao.enums.UserSexEnum;
+import com.github.candyacao.model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

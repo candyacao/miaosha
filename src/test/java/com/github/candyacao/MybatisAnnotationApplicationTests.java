@@ -1,4 +1,4 @@
-package com.neo;
+package com.github.candyacao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,9 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class MybatisAnnotationApplicationTests {
 
-	@Test
-	public void contextLoads() {
-		System.out.println("hello world");
-	}
+    @Test
+    public void contextLoads() {
+        System.out.println("hello world");
+    }
 
 }

@@ -1,7 +1,7 @@
-package com.neo.service;
+package com.github.candyacao.service;
 
-import com.neo.enums.UserSexEnum;
-import com.neo.model.User;
+import com.github.candyacao.enums.UserSexEnum;
+import com.github.candyacao.model.User;
 
 public interface UserService {
     User getOne(Long id);

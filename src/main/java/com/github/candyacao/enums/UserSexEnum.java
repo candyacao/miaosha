@@ -1,4 +1,4 @@
-package com.neo.enums;
+package com.github.candyacao.enums;
 
 public enum UserSexEnum {
     MAN(0,"男"), WOMAN(1,"女");

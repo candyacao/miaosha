@@ -1,11 +1,11 @@
-package com.neo.service.impl;
+package com.github.candyacao.service.impl;
 
-import com.neo.enums.UserSexEnum;
-import com.neo.mapper.UserMapper;
-import com.neo.model.User;
-import com.neo.service.UserService;
-import com.neo.utils.MD5Util;
-import com.neo.utils.RandomString;
+import com.github.candyacao.enums.UserSexEnum;
+import com.github.candyacao.mapper.UserMapper;
+import com.github.candyacao.model.User;
+import com.github.candyacao.service.UserService;
+import com.github.candyacao.utils.MD5Util;
+import com.github.candyacao.utils.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.neo.web;
+package com.github.candyacao.web;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -19,8 +19,7 @@ import java.util.Random;
 public class PictureCheckCode extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
-
+    
     /* 该方法主要作用是获得随机生成的颜色 */
     public Color getRandColor(int s, int e) {
         Random random = new Random();

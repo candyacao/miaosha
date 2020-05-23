@@ -1,4 +1,4 @@
-package com.neo.utils;
+package com.github.candyacao.utils;
 
 import java.util.Random;
 
