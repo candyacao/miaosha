@@ -1,6 +1,7 @@
 package com.github.candyacao.service.impl;
 
 import com.github.candyacao.enums.UserSexEnum;
+import com.github.candyacao.exception.GlobleException;
 import com.github.candyacao.mapper.UserMapper;
 import com.github.candyacao.model.User;
 import com.github.candyacao.service.UserService;
@@ -8,6 +9,8 @@ import com.github.candyacao.utils.MD5Util;
 import com.github.candyacao.utils.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.github.candyacao.common.enums.ResultStatus.SYSTEM_ERROR;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,6 +44,6 @@ public class UserServiceImpl implements UserService {
     // 登录
     @Override
     public void signIn(String username, String passwd) {
-
+        throw new GlobleException(SYSTEM_ERROR);
     }
 }

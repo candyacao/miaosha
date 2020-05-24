@@ -1,5 +1,6 @@
 package com.github.candyacao.web;
 
+import com.github.candyacao.common.resultbean.Result;
 import com.github.candyacao.enums.UserSexEnum;
 import com.github.candyacao.model.ResponseNormal;
 import com.github.candyacao.model.User;
@@ -35,15 +36,19 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    public ResponseNormal login(HttpServletRequest request) {
+    public Result<ResponseNormal> login(HttpServletRequest request) {
+        userService.signIn(null, null);
+        log.error("unexpected");
         ResponseNormal response = new ResponseNormal();
+        Result<ResponseNormal> result = Result.build();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         log.trace("attempt to login, username: {}, password: {}", username, password);
         if (null == username || null == password) {
             response.setMsg("username or password is null");
-            return response;
+            result.setData(response);
+            return result;
         }
         // 根据用户名去数据查询盐值及存储密码，判断用户输入的"密码+盐"生成的MD5编码是否与数据库存储的相同
         // 相同，则通过验证
@@ -52,7 +57,8 @@ public class UserController {
             String msg = "user not exists";
             log.error("user not exists: {}", username);
             response.setMsg(msg);
-            return response;
+            result.setData(response);
+            return result;
         }
         String salt = user.getSalt();
         String md5info = user.getHashPassword();
@@ -60,7 +66,8 @@ public class UserController {
         if (!md5info.equals(realPassword)) {
             log.error("passwd unvalied, username: {}", username);
             response.setMsg("passwd unvalied");
-            return response;
+            result.setData(response);
+            return result;
         }
         // 校验通过时，在session里放入一个标识
         // 后续通过session里是否存在该标识来判断用户是否登录
@@ -68,7 +75,8 @@ public class UserController {
         response.setSuccess(true);
         response.setMsg("logined");
         log.trace("login success, userId: {}", user.getId());
-        return response;
+        result.setData(response);
+        return result;
     }
 
     /**
