@@ -1,5 +1,6 @@
 package com.github.candyacao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.candyacao.enums.UserSexEnum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
