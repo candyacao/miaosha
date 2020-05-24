@@ -10,6 +10,20 @@ spring:
   devtools:
     restart:
       additional-path: com.github.candyacao
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: "spring:session"
+  redis:
+    host: localhost
+    password: foobar
+    port: 6379
+
+server:
+  servlet:
+    session:
+      timeout: 60s
 
 logging:
   level:
