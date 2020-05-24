@@ -10,6 +10,7 @@ spring:
   devtools:
     restart:
       additional-path: com.github.candyacao
+
 logging:
   level:
     com:
