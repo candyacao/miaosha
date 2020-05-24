@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signUp(String username, String passwd, UserSexEnum userSex, String nickName) {
         String halt = RandomString.getRandomString(10);
-        passwd = MD5Util.md5(passwd+halt);
+        passwd = MD5Util.md5(passwd + halt);
         User user = new User(username, halt, passwd, userSex, nickName);
         userMapper.insert(user);
     }
@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
     // 登录
     @Override
     public void signIn(String username, String passwd) {
-
 
     }
 }

@@ -22,6 +22,7 @@ public interface UserMapper {
             @Result(property = "nickName", column = "nick_name")
     })
     User getOneByID(Long id);
+
     @Select("SELECT * FROM users WHERE userName = #{username}")
     @Results({
             @Result(property = "userSex", column = "user_sex", javaType = UserSexEnum.class),
