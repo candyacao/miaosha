@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.candyacao</groupId>
-    <artifactId>spring-boot-mybatis-annotation</artifactId>
+    <artifactId>seckill</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>spring-boot-mybatis-annotation</name>
-    <description>Demo project for Spring Boot and mybatis</description>
+    <name>seconds_kill</name>
+    <description>seconds kill project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
