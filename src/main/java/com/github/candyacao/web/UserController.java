@@ -4,6 +4,7 @@ import com.github.candyacao.common.resultbean.Result;
 import com.github.candyacao.enums.UserSexEnum;
 import com.github.candyacao.model.ResponseNormal;
 import com.github.candyacao.model.User;
+import com.github.candyacao.model.UserView;
 import com.github.candyacao.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,8 @@ public class UserController {
      * @param request
      */
     @RequestMapping("/register")
-    public Result<ResponseNormal> register(HttpServletRequest request) {
-        ResponseNormal response = new ResponseNormal();
-        Result<ResponseNormal> result = Result.build();
+    public Result<String> register(HttpServletRequest request) {
+        Result<String> result = Result.build();
         String username = request.getParameter("username");
         String passWd = request.getParameter("password");
         String userSex = request.getParameter("userSex");
@@ -40,14 +40,10 @@ public class UserController {
         System.out.println("request"+request);
         HttpSession session = request.getSession();
         System.out.println(session.getAttribute("randCheckCode"));*/
-
-        User user = userService.getOne(username);
         // TODO: 如何设计事务回滚
-        userService.signUp(username, passWd, UserSexEnum.getSexEnum(Integer.parseInt(userSex)), nickName);
-        response.setSuccess(true);
-        response.setMsg("singnup success");
+        User insertUser = userService.signUp(username, passWd, UserSexEnum.getSexEnum(Integer.parseInt(userSex)), nickName);
         log.trace("register: user: {}", username);
-        result.setData(response);
+        result.setData(insertUser.getId()+"");
         return result;
     }
 
@@ -80,21 +76,17 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    public Result<ResponseNormal> login(HttpServletRequest request) {
-        ResponseNormal response = new ResponseNormal();
-        Result<ResponseNormal> result = Result.build();
-
+    public Result<UserView> login(HttpServletRequest request) {
+        Result<UserView> result = Result.build();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = userService.signIn(username, password);
+        UserView user = userService.signIn(username, password);
         log.trace("attempt to login, username: {}, password: {}", username, password);
         // 校验通过时，在session里放入一个标识
         // 后续通过session里是否存在该标识来判断用户是否登录
         request.getSession().setAttribute(SESSION_KEY, user);
-        response.setSuccess(true);
-        response.setMsg("logined");
         log.trace("login success, userId: {}", user.getId());
-        result.setData(response);
+        result.setData(user);
         return result;
     }
 
@@ -105,12 +97,11 @@ public class UserController {
      * @return
      */
     @RequestMapping("/loginout")
-    public ResponseNormal loginOut(HttpServletRequest request) {
-        ResponseNormal response = new ResponseNormal();
+    public Result<String> loginOut(HttpServletRequest request) {
+        Result<String> result = Result.build();
         request.getSession().invalidate();
-        response.setSuccess(true);
-        response.setMsg("logout");
-        return response;
+        result.setData("注销成功");
+        return result;
     }
 
     /**

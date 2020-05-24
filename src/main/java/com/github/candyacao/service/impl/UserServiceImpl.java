@@ -4,6 +4,7 @@ import com.github.candyacao.enums.UserSexEnum;
 import com.github.candyacao.exception.GlobleException;
 import com.github.candyacao.mapper.UserMapper;
 import com.github.candyacao.model.User;
+import com.github.candyacao.model.UserView;
 import com.github.candyacao.service.UserService;
 import com.github.candyacao.utils.MD5Util;
 import com.github.candyacao.utils.RandomString;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getOne(String username) {
-        if(StringUtils.isEmpty(username)){
+        if (StringUtils.isEmpty(username)){
             throw new GlobleException(USERNAME_OR_PASSWD_EMPTY);
         }
         return userMapper.getOneByUsername(username);
@@ -33,11 +34,20 @@ public class UserServiceImpl implements UserService {
 
     // 注册
     @Override
-    public void signUp(String username, String passwd, UserSexEnum userSex, String nickName) {
+    public User signUp(String username, String passwd, UserSexEnum userSex, String nickName) {
+        User user = getOne(username);
+        if(null != user){
+            throw new GlobleException(RESIGETR_ISEXSIT);
+        }
+        if(StringUtils.isEmpty(passwd)){
+            throw new GlobleException(USERNAME_OR_PASSWD_EMPTY);
+        }
         String halt = RandomString.getRandomString(10);
         passwd = MD5Util.md5(passwd + halt);
-        User user = new User(username, halt, passwd, userSex, nickName);
-        userMapper.insert(user);
+        User insertUser = new User(username, halt, passwd, userSex, nickName);
+        // Todo: 插入是否成功
+        userMapper.insert(insertUser);
+        return insertUser;
     }
 
     @Override
@@ -47,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     // 登录
     @Override
-    public User signIn(String username, String passwd) {
+    public UserView signIn(String username, String passwd) {
         if (StringUtils.isEmpty(username) && StringUtils.isEmpty(passwd)) {
            throw new GlobleException(USERNAME_OR_PASSWD_EMPTY);
         }
@@ -63,6 +73,7 @@ public class UserServiceImpl implements UserService {
         if (!md5info.equals(realPassword)) {
             throw new GlobleException(PASSWORD_ERROR);
         }
-       return user;
+        UserView retUser = new UserView(user.getId(),user.getUserName(),user.getUserSex(),user.getNickName());
+       return retUser;
     }
 }

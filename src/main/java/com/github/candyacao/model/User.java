@@ -28,4 +28,11 @@ public class User implements Serializable {
         this.userSex = userSex;
         this.nickName = nickName;
     }
+
+    public User(Long id, String userName, UserSexEnum userSex, String nickName) {
+        this.id = id;
+        this.userName = userName;
+        this.userSex = userSex;
+        this.nickName = nickName;
+    }
 }

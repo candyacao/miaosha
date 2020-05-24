@@ -28,8 +28,9 @@ public enum ResultStatus {
      * 注册登录
      */
     RESIGETR_SUCCESS(20000, "注册成功!"),
-    RESIGETER_FAIL(200001, "注册失败!"),
-    CODE_FAIL(200002, "验证码不一致!"),
+    RESIGETER_FAIL(20001, "注册失败!"),
+    CODE_FAIL(20002, "验证码不一致!"),
+    RESIGETR_ISEXSIT(20003, "该用户已注册"),
 
     /**
      * check
