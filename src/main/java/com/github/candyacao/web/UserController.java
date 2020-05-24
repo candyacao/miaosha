@@ -59,6 +59,16 @@ public class UserController {
         return user;
     }
 
+    @RequestMapping("/me")
+    public UserView me(HttpSession session) {
+        User me = (User) session.getAttribute(SESSION_KEY);
+        UserView ret = null;
+        if (me != null) {
+            ret = new UserView(me);
+        }
+        return ret;
+    }
+
     /**
      * 登录
      *
@@ -86,7 +96,7 @@ public class UserController {
         // 后续通过session里是否存在该标识来判断用户是否登录
         request.getSession().setAttribute(SESSION_KEY, user);
         log.trace("login success, userId: {}", user.getId());
-        UserView retUser = new UserView(user.getId(),user.getUserName(),user.getUserSex(),user.getNickName());
+        UserView retUser = new UserView(user);
         result.setData(retUser);
         return result;
     }

@@ -16,4 +16,11 @@ public class UserView implements Serializable {
     private String userName;
     private UserSexEnum userSex;
     private String nickName;
+
+    public UserView(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.userSex = user.getUserSex();
+        this.nickName = user.getNickName();
+    }
 }
