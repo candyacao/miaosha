@@ -9,6 +9,7 @@ package com.github.candyacao.common.enums;
  * 5 商品错误
  * 6 订单错误
  */
+// Todo: 用Lombok去重构getter/setter
 public enum ResultStatus {
     SUCCESS(0, "成功"),
     FAILD(-1, "失败"),
@@ -43,6 +44,7 @@ public enum ResultStatus {
     MOBILE_NOT_EXIST(30009, "手机号不存在!"),
     PASSWORD_ERROR(30010, "密码错误!"),
     USER_NOT_EXIST(30011, "用户不存在！"),
+    USERNAME_OR_PASSWD_EMPTY(30012, "用户名或密码不能为空"),
 
     /**
      * 订单模块

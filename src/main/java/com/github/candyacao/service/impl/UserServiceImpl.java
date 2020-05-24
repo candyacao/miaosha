@@ -7,10 +7,11 @@ import com.github.candyacao.model.User;
 import com.github.candyacao.service.UserService;
 import com.github.candyacao.utils.MD5Util;
 import com.github.candyacao.utils.RandomString;
+import com.github.candyacao.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.github.candyacao.common.enums.ResultStatus.SYSTEM_ERROR;
+import static com.github.candyacao.common.enums.ResultStatus.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getOne(String username) {
+        if(StringUtils.isEmpty(username)){
+            throw new GlobleException(USERNAME_OR_PASSWD_EMPTY);
+        }
         return userMapper.getOneByUsername(username);
     }
 
@@ -43,7 +47,22 @@ public class UserServiceImpl implements UserService {
 
     // 登录
     @Override
-    public void signIn(String username, String passwd) {
-        throw new GlobleException(SYSTEM_ERROR);
+    public User signIn(String username, String passwd) {
+        if (StringUtils.isEmpty(username) && StringUtils.isEmpty(passwd)) {
+           throw new GlobleException(USERNAME_OR_PASSWD_EMPTY);
+        }
+        // 根据用户名去数据查询盐值及存储密码，判断用户输入的"密码+盐"生成的MD5编码是否与数据库存储的相同
+        // 相同，则通过验证
+        User user = getOne(username);
+        if (user == null) {
+            throw new GlobleException(USER_NOT_EXIST);
+        }
+        String salt = user.getSalt();
+        String md5info = user.getHashPassword();
+        String realPassword = MD5Util.md5(passwd + salt);
+        if (!md5info.equals(realPassword)) {
+            throw new GlobleException(PASSWORD_ERROR);
+        }
+       return user;
     }
 }

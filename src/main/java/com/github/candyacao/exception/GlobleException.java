@@ -1,7 +1,7 @@
 package com.github.candyacao.exception;
 
 import com.github.candyacao.common.enums.ResultStatus;
-
+// Todo: 用Lombok去重构getter/setter
 public class GlobleException extends RuntimeException {
 
 
