@@ -80,13 +80,14 @@ public class UserController {
         Result<UserView> result = Result.build();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        UserView user = userService.signIn(username, password);
+        User user = userService.signIn(username, password);
         log.trace("attempt to login, username: {}, password: {}", username, password);
         // 校验通过时，在session里放入一个标识
         // 后续通过session里是否存在该标识来判断用户是否登录
         request.getSession().setAttribute(SESSION_KEY, user);
         log.trace("login success, userId: {}", user.getId());
-        result.setData(user);
+        UserView retUser = new UserView(user.getId(),user.getUserName(),user.getUserSex(),user.getNickName());
+        result.setData(retUser);
         return result;
     }
 

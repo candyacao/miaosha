@@ -16,6 +16,6 @@ public interface UserService {
     void logout();
 
     // 登录
-    UserView signIn(String username, String passwd);
+    User signIn(String username, String passwd);
 
 }

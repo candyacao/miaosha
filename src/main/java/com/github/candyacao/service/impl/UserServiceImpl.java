@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     // 登录
     @Override
-    public UserView signIn(String username, String passwd) {
+    public User signIn(String username, String passwd) {
         if (StringUtils.isEmpty(username) && StringUtils.isEmpty(passwd)) {
            throw new GlobleException(USERNAME_OR_PASSWD_EMPTY);
         }
@@ -73,7 +73,6 @@ public class UserServiceImpl implements UserService {
         if (!md5info.equals(realPassword)) {
             throw new GlobleException(PASSWORD_ERROR);
         }
-        UserView retUser = new UserView(user.getId(),user.getUserName(),user.getUserSex(),user.getNickName());
-       return retUser;
+       return user;
     }
 }
