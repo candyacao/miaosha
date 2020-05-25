@@ -21,7 +21,7 @@ public class Result<T> extends AbstractResult implements Serializable {
     }
 
     public static <T> Result<T> build() {
-        return new Result(ResultStatus.SUCCESS, (String) null);
+        return new Result(ResultStatus.SUCCESS, "ok");
     }
 
     public static <T> Result<T> build(String message) {

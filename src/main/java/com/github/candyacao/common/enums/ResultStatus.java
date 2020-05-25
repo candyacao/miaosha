@@ -8,6 +8,8 @@ package com.github.candyacao.common.enums;
  * 4 秒杀错误
  * 5 商品错误
  * 6 订单错误
+ * 7 商品错误
+ * 8 购物车错误
  */
 // Todo: 用Lombok去重构getter/setter
 public enum ResultStatus {
@@ -31,6 +33,19 @@ public enum ResultStatus {
     RESIGETER_FAIL(20001, "注册失败!"),
     CODE_FAIL(20002, "验证码不一致!"),
     RESIGETR_ISEXSIT(20003, "该用户已注册"),
+
+    /**
+     * 商品模块
+     */
+    PRODUCT_ISNOT_EXSIT(70001, "商品或秒杀商品不存在"),
+
+    /**
+     * 购物车模块
+     */
+    CART_ADDGOOD_FAIL(80001, "商品添加购物车失败"),
+    CART_UPDATEGOOD_FAIL(80002,"更改购物车商品信息失败"),
+    CART_DELETEGOOD_FAIL(80003,"删除购物车商品失败"),
+    CART_DECGOOD_FAIL(80004,"减少购物车商品数量失败"),
 
     /**
      * check

@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
         String halt = RandomString.getRandomString(10);
         passwd = MD5Util.md5(passwd + halt);
         User insertUser = new User(username, halt, passwd, userSex, nickName);
-        // Todo: 插入是否成功
         userMapper.insert(insertUser);
         return insertUser;
     }

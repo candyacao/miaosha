@@ -29,3 +29,52 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
+----------------------
+-- 商品表
+----------------------
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+  `name` varchar(16) DEFAULT NULL COMMENT '商品名称',
+  `title` varchar(64) DEFAULT NULL COMMENT '商品标题',
+  `img` varchar(64) DEFAULT NULL COMMENT '商品的图片',
+  `detail` longtext COMMENT '商品的详情介绍',
+  `price` NUMERIC(10,2) DEFAULT '0.00' COMMENT '商品单价',
+  `stock` int(11) DEFAULT '0' COMMENT '商品库存，-1表示没有限制',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `product_seckill`
+--
+
+DROP TABLE IF EXISTS `product_seckill`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_seckill` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '秒杀的商品表',
+  `product_id` bigint(20) DEFAULT NULL COMMENT '商品Id',
+  `price` NUMERIC(10,2) DEFAULT '0.00' COMMENT '秒杀价',
+  `stock_count` int(11) DEFAULT NULL COMMENT '库存数量',
+  `start_date` datetime DEFAULT NULL COMMENT '秒杀开始时间',
+  `end_date` datetime DEFAULT NULL COMMENT '秒杀结束时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--- 购物车
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物车ID',
+`user_id` bigint(20) NOT NULL COMMENT '用户ID',
+`product_id` bigint(20) DEFAULT NULL COMMENT '商品ID',
+`price` NUMERIC(10,2) DEFAULT '0.00' COMMENT '商品价格',
+`quantity` int(11) DEFAULT NULL COMMENT '商品数量',
+`create_date` datetime DEFAULT NULL COMMENT '创建时间',
+`update_date` datetime DEFAULT NULL COMMENT '更新时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
