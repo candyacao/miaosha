@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
-
+    // 添加商品
     @PostMapping("/createProduct")
     public Result<String> createProduct(Product product){
         Result<String> result = Result.build();
@@ -30,6 +30,15 @@ public class ProductController {
         result.setData(product);
         return result;
     }
+    // 减少商品库存
+    @PutMapping("/decProductCount")
+    public Result<String> decProductCount(Product product){
+        Result<String> result = Result.build();
+        String msg = productService.decProductCount(product);
+        result.setData(msg);
+        return result;
+    }
+    // 更改商品信息
     @PutMapping("/updateProduct")
     public Result<String> updateProduct(Product product){
         Result<String> result = Result.build();
@@ -37,6 +46,7 @@ public class ProductController {
         result.setData(msg);
         return result;
     }
+    // 删除商品
     @DeleteMapping("/deleteProduct")
     public Result<String> deleteProduct(Long id){
         Result<String> result = Result.build();
@@ -44,6 +54,7 @@ public class ProductController {
         result.setData(msg);
         return result;
     }
+    // 获取商品列表
     @GetMapping("/getProducts")
     public Result<List<Product>> getProducts(){
         Result<List<Product>> result = Result.build();

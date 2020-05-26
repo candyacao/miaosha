@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.github.candyacao.common.enums.ResultStatus.PRODUCT_ISNOT_EXSIT;
+import static com.github.candyacao.common.enums.ResultStatus.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -17,8 +17,11 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
     @Override
     public String add(Product prodoct) {
-        productMapper.add(prodoct);
-        return "商品添加成功";
+        int count = productMapper.add(prodoct);
+        if (count <= 0){
+            throw new GlobleException(PRODUCT_ADD_FAIL);
+        }
+        return "ok";
     }
 
     @Override
@@ -31,20 +34,35 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String updateProduct(Product product) {
-        productMapper.updateProduct(product);
-        return "更新商品库存成功";
+    public String decProductCount(Product product) {
+       int count = productMapper.decProductCount(product);
+       if(count <= 0){
+           throw new GlobleException(PRODUCT_DEC_FAIL);
+       }
+        return "ok";
     }
 
     @Override
     public String deleteProduct(Long id) {
-        productMapper.deleteProduct(id);
-        return "删除成功";
+        int count = productMapper.deleteProduct(id);
+        if(count <= 0){
+            throw new GlobleException(PRODUCT_DELETE_FAIL);
+        }
+        return "ok";
     }
 
     @Override
     public List<Product> getProducts() {
         List<Product> products = productMapper.getProducts();
         return products;
+    }
+
+    @Override
+    public String updateProduct(Product product) {
+        int count = productMapper.updateProduct(product);
+        if(count <= 0){
+            throw new GlobleException(PRODUCT_UPDATE_FAIL);
+        }
+        return "ok";
     }
 }

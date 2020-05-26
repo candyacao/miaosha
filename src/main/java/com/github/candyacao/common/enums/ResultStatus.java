@@ -1,5 +1,7 @@
 package com.github.candyacao.common.enums;
 
+import lombok.Data;
+
 /**
  * 普通返回类
  * 1打头 系统系列错误
@@ -11,7 +13,6 @@ package com.github.candyacao.common.enums;
  * 7 商品错误
  * 8 购物车错误
  */
-// Todo: 用Lombok去重构getter/setter
 public enum ResultStatus {
     SUCCESS(0, "成功"),
     FAILD(-1, "失败"),
@@ -38,6 +39,10 @@ public enum ResultStatus {
      * 商品模块
      */
     PRODUCT_ISNOT_EXSIT(70001, "商品或秒杀商品不存在"),
+    PRODUCT_DEC_FAIL(70002, "商品或秒杀商品减少库存失败"),
+    PRODUCT_ADD_FAIL(70003, "商品或秒杀商品添加数据失败"),
+    PRODUCT_DELETE_FAIL(70004, "商品或秒杀商品删除数据失败"),
+    PRODUCT_UPDATE_FAIL(70005, "商品更新数据失败"),
 
     /**
      * 购物车模块

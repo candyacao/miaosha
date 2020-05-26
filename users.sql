@@ -78,3 +78,15 @@ CREATE TABLE `cart` (
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
+--- 订单表
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+`user_id` bigint(20) NOT NULL COMMENT '用户ID',
+`product_id` bigint(20) DEFAULT NULL COMMENT '商品ID',
+`price` NUMERIC(10,2) DEFAULT '0.00' COMMENT '商品价格',
+`quantity` int(11) DEFAULT NULL COMMENT '商品数量',
+`create_date` datetime DEFAULT NULL COMMENT '创建时间',
+`end_date` datetime DEFAULT NULL COMMENT '结束时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;

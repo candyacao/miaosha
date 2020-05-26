@@ -1,6 +1,5 @@
 package com.github.candyacao.mapper;
 
-import com.github.candyacao.enums.UserSexEnum;
 import com.github.candyacao.model.Cart;
 import org.apache.ibatis.annotations.*;
 
@@ -15,7 +14,7 @@ public interface CartMapper {
     int deleteCart(Cart cart);
 
     @Select("SELECT * FROM cart WHERE user_id =#{userID} ORDER BY update_date DESC")
-    @Results({
+    @Results(id = "cartResults", value={
             @Result(property = "id", column = "id"),
             @Result(property = "userID", column = "user_id"),
             @Result(property = "productID", column = "product_id"),
@@ -25,13 +24,7 @@ public interface CartMapper {
     List<Cart> getCarts(Long userID);
 
     @Select("SELECT * FROM cart WHERE user_id =#{userID} AND product_id =#{productID}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "userID", column = "user_id"),
-            @Result(property = "productID", column = "product_id"),
-            @Result(property = "createDate", column = "create_date"),
-            @Result(property = "updateDate", column = "update_date"),
-    })
+    @ResultMap("cartResults")
     Cart getCartByUserAndGood(Long userID, Long productID);
 
     @Update("UPDATE cart SET quantity = quantity + 1,update_date=now() WHERE id =#{id}")

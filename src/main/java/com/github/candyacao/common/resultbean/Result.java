@@ -3,7 +3,6 @@ package com.github.candyacao.common.resultbean;
 import com.github.candyacao.common.enums.ResultStatus;
 
 import java.io.Serializable;
-// Todo: 用Lombok去重构getter/setter
 public class Result<T> extends AbstractResult implements Serializable {
     private static final long serialVersionUID = 867933019328199779L;
     private T data;

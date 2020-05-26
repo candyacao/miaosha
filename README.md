@@ -7,3 +7,9 @@ docker-compose down    ## 关闭数据库
 
 docker-compose exec db sh ## 进入对应的容器，执行命令
 mvn spring-boot:run    ## 启动Spring-boot
+
+## web
+
+cd web
+yarn install
+yarn start

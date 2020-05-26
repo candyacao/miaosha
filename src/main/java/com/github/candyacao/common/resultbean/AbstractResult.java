@@ -1,8 +1,6 @@
 package com.github.candyacao.common.resultbean;
 
-
 import com.github.candyacao.common.enums.ResultStatus;
-// Todo: 用Lombok去重构getter/setter
 public class AbstractResult {
     private ResultStatus status;
     private int code;

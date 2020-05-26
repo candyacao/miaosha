@@ -10,24 +10,18 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("SELECT * FROM users")
-    @Results({
+    @Results(id = "userResults", value = {
             @Result(property = "userSex", column = "user_sex", javaType = UserSexEnum.class),
             @Result(property = "nickName", column = "nick_name")
     })
     List<User> getAll();
 
     @Select("SELECT * FROM users WHERE id = #{id}")
-    @Results({
-            @Result(property = "userSex", column = "user_sex", javaType = UserSexEnum.class),
-            @Result(property = "nickName", column = "nick_name")
-    })
+    @ResultMap("userResults")
     User getOneByID(Long id);
 
     @Select("SELECT * FROM users WHERE userName = #{username}")
-    @Results({
-            @Result(property = "userSex", column = "user_sex", javaType = UserSexEnum.class),
-            @Result(property = "nickName", column = "nick_name")
-    })
+    @ResultMap("userResults")
     User getOneByUsername(String username);
 
     @Insert("INSERT INTO users(userName,salt,hashPassword,user_sex,nick_name) VALUES(#{userName}, #{salt}, #{hashPassword}, #{userSex}, #{nickName})")
