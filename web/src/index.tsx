@@ -10,51 +10,41 @@ import 'react-app-polyfill/stable';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import FontFaceObserver from 'fontfaceobserver';
-import * as serviceWorker from 'serviceWorker';
+import { withRouter, BrowserRouter } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+import * as serviceWorker from 'serviceWorker';
 import 'sanitize.css/sanitize.css';
 
-// Initialize languages
-import './locales/i18n';
-
+// Import root app
 import { App } from 'app';
 
 import { HelmetProvider } from 'react-helmet-async';
 
 import { configureAppStore } from 'store/configureStore';
 
-import { ThemeProvider } from 'styles/theme/ThemeProvider';
-
-// Observe loading of Inter (to remove 'Inter', remove the <link> tag in
-// the index.html file and this observer)
-const openSansObserver = new FontFaceObserver('Inter', {});
-
-// When Inter is loaded, add a font-family using Inter to the body
-openSansObserver.load().then(() => {
-  document.body.classList.add('fontLoaded');
-});
+// Initialize languages
+import './locales/i18n';
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 interface Props {
-  Component: typeof App;
+  Component: React.ComponentClass;
 }
 const ConnectedApp = ({ Component }: Props) => (
   <Provider store={store}>
-    <ThemeProvider>
-      <HelmetProvider>
-        <React.StrictMode>
+    <HelmetProvider>
+      <React.StrictMode>
+        <BrowserRouter>
           <Component />
-        </React.StrictMode>
-      </HelmetProvider>
-    </ThemeProvider>
+        </BrowserRouter>
+      </React.StrictMode>
+    </HelmetProvider>
   </Provider>
 );
 
-const render = (Component: typeof App) => {
+const render = (Component: React.ComponentClass) => {
   ReactDOM.render(<ConnectedApp Component={Component} />, MOUNT_NODE);
 };
 
@@ -65,11 +55,11 @@ if (module.hot) {
   module.hot.accept(['./app', './locales/i18n'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     const App = require('./app').App;
-    render(App);
+    render(withRouter(App));
   });
 }
 
-render(App);
+render(withRouter(App));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

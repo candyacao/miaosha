@@ -1,25 +1,37 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { NavBar } from '../NavBar';
-import { Masthead } from './Masthead';
-import { Features } from './Features';
-import { PageWrapper } from 'app/components/PageWrapper';
+import axios from 'axios';
+
+class MeProfile extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      me: {},
+    };
+  }
+  getData() {
+    axios.get('/me').then(response => {
+      console.log(response);
+      this.setState({ me: response.data });
+    });
+  }
+  componentWillMount() {
+    this.getData();
+  }
+  render() {
+    return <p>hello {this.state.me?.nickName || 'any'}</p>;
+  }
+}
 
 export function HomePage() {
   return (
     <>
       <Helmet>
         <title>Home Page</title>
-        <meta
-          name="description"
-          content="A React Boilerplate application homepage"
-        />
+        <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <NavBar />
-      <PageWrapper>
-        <Masthead />
-        <Features />
-      </PageWrapper>
+      <span>HomePage container</span>
+      <MeProfile></MeProfile>
     </>
   );
 }
