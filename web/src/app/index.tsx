@@ -16,6 +16,7 @@ import { HomePage } from './containers/HomePage/Loadable';
 import { SignUp } from './containers/SignUp/Loadable';
 import { SignIn } from './containers/SignIn/Loadable';
 import { Products } from './containers/Products/Loadable';
+import { Carts } from './containers/Carts/Loadable';
 
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 
@@ -34,6 +35,7 @@ export function App() {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/products" component={Products} />
+        <Route exact path="/carts" component={Carts} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
