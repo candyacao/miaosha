@@ -13,3 +13,7 @@ mvn spring-boot:run    ## 启动Spring-boot
 cd web
 yarn install
 yarn start
+
+## build 
+
+./mvnw clean package docker:build
