@@ -15,6 +15,7 @@ import { GlobalStyle } from 'styles/global-styles';
 import { HomePage } from './containers/HomePage/Loadable';
 import { SignUp } from './containers/SignUp/Loadable';
 import { SignIn } from './containers/SignIn/Loadable';
+import { Products } from './containers/Products/Loadable';
 
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 
@@ -32,6 +33,7 @@ export function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/products" component={Products} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
