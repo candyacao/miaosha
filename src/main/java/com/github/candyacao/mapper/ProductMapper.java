@@ -12,6 +12,14 @@ public interface ProductMapper {
     int add(Product product);
 
     @Select("SELECT * FROM product WHERE id = #{id}")
+    @Results(id = "productInfo", value = {
+            @Result(property = "name", column = "name"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "img", column = "img"),
+            @Result(property = "detail", column = "detail"),
+            @Result(property = "price", column = "price"),
+            @Result(property = "stock", column = "stock")
+    })
     Product getProductByID(Long id);
 
     @Update("<script>" +

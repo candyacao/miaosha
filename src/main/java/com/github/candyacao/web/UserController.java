@@ -23,6 +23,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    public static String getSessionKey() {
+        return SESSION_KEY;
+    }
+
     /**
      * 新用户注册
      *

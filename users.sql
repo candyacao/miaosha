@@ -85,8 +85,13 @@ CREATE TABLE `order` (
 `user_id` bigint(20) NOT NULL COMMENT '用户ID',
 `product_id` bigint(20) DEFAULT NULL COMMENT '商品ID',
 `price` NUMERIC(10,2) DEFAULT '0.00' COMMENT '商品价格',
-`quantity` int(11) DEFAULT NULL COMMENT '商品数量',
+`product_count` int(11) DEFAULT NULL COMMENT '商品数量',
+`order_price` NUMERIC(10,2) DEFAULT NULL COMMENT '订单总金额',
+`state` bigint(5) DEFAULT NULL COMMENT '订单状态 0:未支付｜1:微信支付｜2:支付宝支付｜3:银行卡支付',
 `create_date` datetime DEFAULT NULL COMMENT '创建时间',
 `end_date` datetime DEFAULT NULL COMMENT '结束时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+-- 用于一个订单多个产品
+--DROP TABLE IF EXISTS `order_detail`;
+

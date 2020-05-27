@@ -66,11 +66,14 @@ public enum ResultStatus {
     PASSWORD_ERROR(30010, "密码错误!"),
     USER_NOT_EXIST(30011, "用户不存在！"),
     USERNAME_OR_PASSWD_EMPTY(30012, "用户名或密码不能为空"),
+    NEED_LOGIN(30013, "用户未登录"),
 
     /**
      * 订单模块
      */
     ORDER_NOT_EXIST(60001, "订单不存在"),
+    ORDER_CREATE_FAIL(60002, "订单创建失败"),
+    ORDER_DELETE_FAIL(60003, "订单删除失败"),
 
     /**
      * 秒杀模块

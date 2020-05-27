@@ -27,8 +27,8 @@ public interface CartMapper {
     @ResultMap("cartResults")
     Cart getCartByUserAndGood(Long userID, Long productID);
 
-    @Update("UPDATE cart SET quantity = quantity + 1,update_date=now() WHERE id =#{id}")
-    int addProductCount(Long id);
+    @Update("UPDATE cart SET quantity = quantity + #{quantity},update_date=now() WHERE id =#{id}")
+    int addProductCount(Long id, int quantity);
 
     @Update("UPDATE cart SET quantity = quantity - 1,update_date=now() WHERE id =#{id} AND quantity > 0")
     int decProductCount(Long id);
