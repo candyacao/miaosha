@@ -1,27 +1,53 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
+import querystring from 'querystring';
 
-function ProductsItem(props) {
-  let pid = props.product.id;
-  let url = '/product/' + pid;
-  let name = props.product.name;
-  let title = props.product.title;
-  let detail = props.product.detail;
-  let price = props.product.price;
-  let stock = props.product.stock;
+class ProductsItem extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productID: this.props.product.id,
+      quantity: 1,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(event) {
+    console.log(this.state);
+    axios
+      .post('/addCart', querystring.stringify(this.state))
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    event.preventDefault();
+  }
 
-  return (
-    <li key={pid}>
-      <a href={url}>{name}</a>
-      <header>{title}</header>
-      <section>
-        <header>{detail}</header>
-        <section>价格: {price}</section>
-        <section>库存: {stock}</section>
-      </section>
-    </li>
-  );
+  render() {
+    let product = this.props.product;
+    let pid = product.id;
+    let url = '/product/' + pid;
+    let name = product.name;
+    let title = product.title;
+    let detail = product.detail;
+    let price = product.price;
+    let stock = product.stock;
+
+    return (
+      <li key={pid}>
+        <a href={url}>{name}</a>
+        <header>{title}</header>
+        <section>
+          <header>{detail}</header>
+          <section>价格: {price}</section>
+          <section>库存: {stock}</section>
+          <button onClick={this.handleSubmit}>加入购物车</button>
+        </section>
+      </li>
+    );
+  }
 }
 
 class ProductsItems extends React.Component<any, any> {
@@ -50,7 +76,7 @@ class ProductsItems extends React.Component<any, any> {
   }
 }
 
-export function Products() {
+export function Products(props) {
   return (
     <>
       <Helmet>
@@ -58,7 +84,7 @@ export function Products() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <span>Products container</span>
-      <ProductsItems></ProductsItems>
+      <ProductsItems {...props}></ProductsItems>
     </>
   );
 }

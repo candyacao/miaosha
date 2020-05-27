@@ -31,6 +31,7 @@ class SignUpForm extends React.Component<any, any> {
       .post('/register', querystring.stringify(this.state))
       .then(response => {
         console.log(response);
+        this.props.history.push('/signin');
       })
       .catch(error => {
         console.log(error);
@@ -88,14 +89,14 @@ class SignUpForm extends React.Component<any, any> {
   }
 }
 
-export function SignUp() {
+export function SignUp(props) {
   return (
     <>
       <Helmet>
         <title>SignUp Page</title>
       </Helmet>
       <span>SignUp container</span>
-      <SignUpForm></SignUpForm>
+      <SignUpForm {...props}></SignUpForm>
     </>
   );
 }

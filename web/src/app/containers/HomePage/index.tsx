@@ -23,7 +23,7 @@ class MeProfile extends React.Component<any, any> {
   }
 }
 
-export function HomePage() {
+export function HomePage(props) {
   return (
     <>
       <Helmet>
@@ -31,7 +31,7 @@ export function HomePage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <span>HomePage container</span>
-      <MeProfile></MeProfile>
+      <MeProfile {...props}></MeProfile>
     </>
   );
 }
